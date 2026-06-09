@@ -1,0 +1,668 @@
+/* ============================================
+   QoderTest 全局样式 + 登录流程专用样式
+   ============================================ */
+
+/* ========== Reset & Base ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', -apple-system, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ========== Loading Screen ========== */
+.loading-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 16px;
+    color: #777;
+}
+.loading-spinner {
+    width: 40px; height: 40px;
+    border: 4px solid #e0e0e0;
+    border-top-color: #1a73e8;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   认证页面（登录 / 注册）共用样式
+   ============================================================ */
+.auth-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #1a73e8 50%, #0d47a1 100%);
+    padding: 24px 16px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+/* 品牌区 */
+.auth-brand {
+    text-align: center;
+    color: #fff;
+}
+.auth-logo {
+    margin-bottom: 12px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+}
+.auth-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.auth-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+/* 卡片 */
+.auth-card {
+    width: 100%;
+    background: #fff;
+    border-radius: 16px;
+    padding: 36px 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    animation: cardFadeIn 0.4s ease-out;
+}
+.auth-card-wide { max-width: 500px; }
+
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-card-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+.auth-card-header h2 {
+    font-size: 1.4rem;
+    color: #1a73e8;
+    font-weight: 600;
+}
+.auth-card-desc {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* 表单 */
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+.form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #444;
+}
+.label-icon {
+    margin-right: 4px;
+    font-size: 0.9rem;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    background: #fafafa;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #1a73e8;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(26,115,232,0.12);
+}
+.form-group input.input-error {
+    border-color: #d93025;
+    background: #fef7f7;
+}
+
+.field-hint {
+    display: block;
+    font-size: 0.78rem;
+    color: #999;
+    margin-top: 4px;
+}
+.field-error {
+    display: block;
+    font-size: 0.8rem;
+    color: #d93025;
+    margin-top: 4px;
+    min-height: 1em;
+}
+
+/* 密码输入框 */
+.input-password-wrapper {
+    position: relative;
+}
+.input-password-wrapper input {
+    padding-right: 48px;
+}
+.btn-toggle-pwd {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    padding: 4px;
+}
+.btn-toggle-pwd:hover { opacity: 1; }
+
+/* 密码强度条 */
+.password-strength {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+.strength-bar {
+    flex: 1;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.strength-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 2px;
+    transition: width 0.3s, background 0.3s;
+}
+.strength-fill.weak   { width: 33%; background: #d93025; }
+.strength-fill.medium { width: 66%; background: #f9ab00; }
+.strength-fill.strong { width: 100%; background: #1e8e3e; }
+.strength-text {
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* 记住我 / 行布局 */
+.form-row-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    color: #666;
+    cursor: pointer;
+}
+.checkbox-label input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: #1a73e8;
+}
+
+/* Alert 提示 */
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    animation: alertShake 0.3s ease;
+}
+.alert-icon { font-size: 1.1rem; }
+.alert-error {
+    background: #fef7f7;
+    border: 1px solid #f5c6cb;
+    color: #d93025;
+}
+@keyframes alertShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-4px); }
+    75%      { transform: translateX(4px); }
+}
+
+/* 按钮 */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-primary:hover { background: #1557b0; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { background: #9db8e8; cursor: not-allowed; transform: none; }
+
+.btn-auth {
+    margin-top: 8px;
+    padding: 14px;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+}
+.btn-auth-flex { flex: 1; padding: 12px 24px; letter-spacing: 1px; }
+.btn-sm { width: auto; padding: 8px 20px; font-size: 0.9rem; }
+
+.btn-back {
+    background: none;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-back:hover { border-color: #1a73e8; color: #1a73e8; }
+
+.btn-outline {
+    display: inline-block;
+    padding: 10px 28px;
+    border: 2px solid #1a73e8;
+    border-radius: 8px;
+    color: #1a73e8;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+.btn-outline:hover {
+    background: #1a73e8;
+    color: #fff;
+}
+
+.btn-header-logout {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+.btn-header-logout:hover { background: rgba(255,255,255,0.3); }
+
+.btn-edit {
+    background: none;
+    border: 1px solid #1a73e8;
+    color: #1a73e8;
+    padding: 4px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: all 0.2s;
+}
+.btn-edit:hover { background: #1a73e8; color: #fff; }
+
+/* 加载 spinner in button */
+.btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.spinner {
+    width: 18px; height: 18px;
+    border: 2.5px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+}
+
+/* 分割线 */
+.auth-divider {
+    text-align: center;
+    margin: 24px 0;
+    position: relative;
+}
+.auth-divider::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    width: 100%; height: 1px;
+    background: #e0e0e0;
+}
+.auth-divider span {
+    position: relative;
+    background: #fff;
+    padding: 0 16px;
+    color: #bbb;
+    font-size: 0.85rem;
+}
+
+/* 卡片底部 */
+.auth-card-footer {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.auth-card-footer p {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* 底部版权 */
+.auth-footer-text {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* ============================================================
+   注册步骤指示器
+   ============================================================ */
+.steps-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+    gap: 0;
+}
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+.step.active .step-num {
+    background: #1a73e8;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(26,115,232,0.35);
+}
+.step.done .step-num {
+    background: #1e8e3e;
+    color: #fff;
+}
+.step-label {
+    font-size: 0.75rem;
+    color: #999;
+    transition: color 0.3s;
+}
+.step.active .step-label { color: #1a73e8; font-weight: 500; }
+.step.done .step-label   { color: #1e8e3e; }
+
+.step-line {
+    width: 60px; height: 2px;
+    background: #e0e0e0;
+    margin: 0 8px;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+}
+.step.done + .step-line,
+.step-line:has(+ .step.done),
+.step-line:has(+ .step.active) {
+    background: #1a73e8;
+}
+
+/* 步骤面板切换 */
+.form-step {
+    display: none;
+    animation: stepFadeIn 0.35s ease-out;
+}
+.form-step.active { display: block; }
+
+@keyframes stepFadeIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* 注册成功动画 */
+.success-animation {
+    text-align: center;
+    padding: 32px 0;
+    animation: successPop 0.5s ease-out;
+}
+.success-circle { margin-bottom: 20px; }
+.checkmark {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: drawCheck 0.6s 0.3s ease forwards;
+}
+@keyframes drawCheck {
+    to { stroke-dashoffset: 0; }
+}
+@keyframes successPop {
+    0%   { opacity: 0; transform: scale(0.8); }
+    50%  { transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.success-title {
+    font-size: 1.4rem;
+    color: #1e8e3e;
+    margin-bottom: 8px;
+}
+.success-desc {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   Dashboard / 个人中心样式
+   ============================================================ */
+.dashboard-header {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    color: #fff;
+    padding: 0 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.header-brand h1 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.header-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.user-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.dashboard-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* 欢迎横幅 */
+.welcome-banner {
+    background: linear-gradient(135deg, #1a73e8, #4285f4);
+    color: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(26,115,232,0.25);
+}
+.welcome-text h2 {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+}
+.welcome-text p {
+    opacity: 0.85;
+    font-size: 0.9rem;
+}
+.welcome-date {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* 卡片网格 */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.dash-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+.dash-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.dash-card-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dash-card-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.dash-card-body {
+    padding: 8px 24px;
+}
+.dash-card-body .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f8f8f8;
+    font-size: 0.9rem;
+}
+.dash-card-body .info-row:last-child { border-bottom: none; }
+.info-label { color: #888; font-weight: 500; }
+.info-value { color: #333; text-align: right; max-width: 60%; word-break: break-all; }
+
+.token-display {
+    font-family: 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.78rem;
+    color: #999;
+}
+
+/* Badge */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+.badge-blue  { background: #e8f0fe; color: #1a73e8; }
+.badge-green { background: #e6f4ea; color: #1e8e3e; }
+
+/* 编辑表单 */
+.dash-card-edit {
+    padding: 20px 24px;
+    border-top: 1px solid #f0f0f0;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+/* ========== Error / Success 通用 ========== */
+.error-msg, .field-error {
+    color: #d93025;
+    font-size: 0.85rem;
+}
+.success-msg {
+    color: #1e8e3e;
+    font-size: 0.85rem;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 480px) {
+    .auth-card { padding: 28px 20px; }
+    .auth-title { font-size: 1.4rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .welcome-banner { flex-direction: column; gap: 12px; }
+    .welcome-date { text-align: left; }
+    .header-user .user-name { display: none; }
+}

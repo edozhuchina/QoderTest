@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QoderTest</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loading-spinner"></div>
+        <p>正在加载...</p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        // 入口路由：根据登录状态跳转
+        if (api.isLoggedIn()) {
+            window.location.replace('profile.html');
+        } else {
+            window.location.replace('login.html');
+        }
+    </script>
+</body>
+</html>

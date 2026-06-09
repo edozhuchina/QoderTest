@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - QoderTest</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+        <!-- Logo / 品牌区 -->
+        <div class="auth-brand">
+            <div class="auth-logo">
+                <svg viewBox="0 0 48 48" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="48" height="48" rx="12" fill="#1a73e8"/>
+                    <path d="M16 24l6 6 10-12" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1 class="auth-title">QoderTest</h1>
+            <p class="auth-subtitle">创建您的新账户</p>
+        </div>
+
+        <!-- 注册卡片 -->
+        <div class="auth-card auth-card-wide">
+            <div class="auth-card-header">
+                <h2>用户注册</h2>
+                <p class="auth-card-desc">填写以下信息完成注册</p>
+            </div>
+
+            <!-- 步骤指示器 -->
+            <div class="steps-indicator">
+                <div class="step active" id="step-dot-1">
+                    <span class="step-num">1</span>
+                    <span class="step-label">基本信息</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step-dot-2">
+                    <span class="step-num">2</span>
+                    <span class="step-label">设置密码</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" id="step-dot-3">
+                    <span class="step-num">3</span>
+                    <span class="step-label">完成</span>
+                </div>
+            </div>
+
+            <form id="register-form" novalidate>
+                <!-- 步骤 1：基本信息 -->
+                <div class="form-step active" id="form-step-1">
+                    <div class="form-group">
+                        <label for="reg-username">
+                            <span class="label-icon">👤</span> 用户名
+                        </label>
+                        <input
+                            type="text"
+                            id="reg-username"
+                            name="username"
+                            placeholder="3-20位字母、数字或下划线"
+                            autocomplete="username"
+                            minlength="3"
+                            maxlength="20"
+                            pattern="[a-zA-Z0-9_]{3,20}"
+                            required
+                        >
+                        <span class="field-hint">用户名将作为您的登录凭据</span>
+                        <span class="field-error" id="err-reg-username"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-email">
+                            <span class="label-icon">📧</span> 邮箱地址
+                        </label>
+                        <input
+                            type="email"
+                            id="reg-email"
+                            name="email"
+                            placeholder="example@email.com"
+                            autocomplete="email"
+                            required
+                        >
+                        <span class="field-error" id="err-reg-email"></span>
+                    </div>
+
+                    <button type="button" class="btn-primary btn-auth" id="btn-step-next">
+                        下一步 →
+                    </button>
+                </div>
+
+                <!-- 步骤 2：设置密码 -->
+                <div class="form-step" id="form-step-2">
+                    <div class="form-group">
+                        <label for="reg-password">
+                            <span class="label-icon">🔒</span> 密码
+                        </label>
+                        <div class="input-password-wrapper">
+                            <input
+                                type="password"
+                                id="reg-password"
+                                name="password"
+                                placeholder="至少8位，建议包含字母和数字"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required
+                            >
+                            <button type="button" class="btn-toggle-pwd" data-target="reg-password">
+                                <span>👁</span>
+                            </button>
+                        </div>
+                        <!-- 密码强度指示器 -->
+                        <div class="password-strength" id="pwd-strength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strength-fill"></div>
+                            </div>
+                            <span class="strength-text" id="strength-text"></span>
+                        </div>
+                        <span class="field-error" id="err-reg-password"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-password-confirm">
+                            <span class="label-icon">🔒</span> 确认密码
+                        </label>
+                        <div class="input-password-wrapper">
+                            <input
+                                type="password"
+                                id="reg-password-confirm"
+                                name="password_confirm"
+                                placeholder="请再次输入密码"
+                                autocomplete="new-password"
+                                minlength="8"
+                                required
+                            >
+                            <button type="button" class="btn-toggle-pwd" data-target="reg-password-confirm">
+                                <span>👁</span>
+                            </button>
+                        </div>
+                        <span class="field-error" id="err-reg-password-confirm"></span>
+                    </div>
+
+                    <div class="form-row-between">
+                        <button type="button" class="btn-back" id="btn-step-back">
+                            ← 上一步
+                        </button>
+                        <button type="submit" class="btn-primary btn-auth-flex" id="btn-register">
+                            <span class="btn-text">创建账户</span>
+                            <span class="btn-loading" style="display:none;">
+                                <span class="spinner"></span> 注册中...
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 步骤 3：完成 -->
+                <div class="form-step" id="form-step-3">
+                    <div class="success-animation">
+                        <div class="success-circle">
+                            <svg viewBox="0 0 52 52" width="64" height="64">
+                                <circle cx="26" cy="26" r="24" fill="none" stroke="#1e8e3e" stroke-width="3"/>
+                                <path class="checkmark" d="M14 27l7 7 16-16" fill="none" stroke="#1e8e3e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="success-title">注册成功！</h3>
+                        <p class="success-desc">您的账户已创建，即将跳转到登录页面...</p>
+                    </div>
+                </div>
+
+                <!-- 全局错误提示 -->
+                <div class="alert alert-error" id="register-alert" style="display:none;">
+                    <span class="alert-icon">⚠</span>
+                    <span id="register-alert-msg"></span>
+                </div>
+            </form>
+
+            <!-- 分割线 -->
+            <div class="auth-divider">
+                <span>或</span>
+            </div>
+
+            <!-- 切换登录 -->
+            <div class="auth-card-footer">
+                <p>已有账户？</p>
+                <a href="login.html" class="btn-outline">返回登录</a>
+            </div>
+        </div>
+
+        <!-- 底部信息 -->
+        <p class="auth-footer-text">© 2026 QoderTest · 注册即表示您同意我们的服务条款</p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>
